@@ -8,6 +8,7 @@ import 'package:prl_app/view/screens/Home/intro_app/store_screen.dart';
 import 'package:prl_app/view/screens/Home/main_home_screen.dart';
 import 'package:prl_app/view/screens/onbording/onbording_screen.dart';
 import 'package:prl_app/view/screens/splash/splash.dart';
+//import 'package:prl_app/view/widgets/Home/stors.dart';
 
 class AppRoutes {
   static const String onbrding = Routes.onbrding;
@@ -18,6 +19,7 @@ class AppRoutes {
   static const String storeScreen = Routes.storeScreen;
   static const String itemScreen = Routes.itemScreen;
  static const String main_home_screen = Routes.main_home_screen;
+//static const String store_screen=Routes.store_screen;
 
   static final routes = [
     GetPage(name: Routes.splash, page: () => const Splash()),
@@ -29,6 +31,7 @@ class AppRoutes {
     GetPage(name: Routes.storeScreen, page: () =>  StoreScreen()),
     GetPage(name: Routes.itemScreen, page: () => const ItemScreen()),
     GetPage(name: Routes.main_home_screen, page:() => MainHomeScreen()),
+   // GetPage(name: Routes.store_screen, page: ()=>StoresListScreen()),
   ];
 }
 
@@ -42,5 +45,6 @@ class Routes {
   static const String storeScreen = '/StoreScreen';
   static const String itemScreen = '/ItemScreen';
   static const String main_home_screen='/main_home_screen';
+  //static const String store_screen="/store_screen";
 }
 

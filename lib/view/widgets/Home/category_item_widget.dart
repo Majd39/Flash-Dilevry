@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prl_app/controlar/controllers/Home/home_products_controller.dart';
-import 'package:prl_app/model/Clases/category_models.dart';  // Import the Category model
 import 'package:prl_app/model/constant/theme.dart';
 import 'package:prl_app/view/widgets/Public/text_widget.dart';
 

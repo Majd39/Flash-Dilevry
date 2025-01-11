@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prl_app/model/constant/theme.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget(

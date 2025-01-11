@@ -5,4 +5,6 @@ static String signUpUrl="/register";
 static String loginUrl='/login';
 //get category 
 static String getCategory="/categories";
+//get stors
+static String getStors="/get_store";
 }

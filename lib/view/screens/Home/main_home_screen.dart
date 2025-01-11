@@ -114,6 +114,7 @@ class MainHomeScreen extends StatelessWidget {
           ),
          body: IndexedStack(
           index: controller.currentIndex.value,
+          // ignore: invalid_use_of_protected_member
           children: controller.tape.value,
         ),),
       );

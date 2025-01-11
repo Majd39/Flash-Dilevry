@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prl_app/model/Clases/products_models.dart';
 import 'package:prl_app/model/Clases/category_models.dart';
+import 'package:prl_app/model/Clases/stores_models.dart';
 import 'package:prl_app/model/routes/routes.dart';
 import 'package:prl_app/services/HomepageService.dart';
 import 'package:prl_app/view/screens/Home/NavBar/favorite_screen.dart';
@@ -33,6 +34,7 @@ class HomeProductsController extends AbsHomeProductsController {
 
   late RxList<Widget> section;
   late RxList<Category> categories = <Category>[].obs;
+  late RxList<StoresModels> stores = <StoresModels>[].obs;
 
   final Homepageservice _homepageservice = Homepageservice();
 
@@ -49,6 +51,7 @@ class HomeProductsController extends AbsHomeProductsController {
       const CardStoreWidget(),
     ].obs;
     fetchCategories(); // Fetch categories on initialization
+    fetchStores();
     super.onInit();
   }
 
@@ -83,6 +86,17 @@ class HomeProductsController extends AbsHomeProductsController {
       print('Error while fetching categories: $e');
       // Handle the error and provide feedback to the user
       Get.snackbar('Error', 'Failed to load categories. Please try again.');
+    }
+  }
+    void fetchStores() async {
+    try {
+      print('Fetching stores...');
+      List<StoresModels> fetchedStores = await _homepageservice.fetchStores();
+      stores.value = fetchedStores;
+      print('Stores fetched successfully.');
+    } catch (e) {
+      print('Error while fetching stores: $e');
+      Get.snackbar('Error', 'Failed to load stores. Please try again.');
     }
   }
 }
