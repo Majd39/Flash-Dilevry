@@ -3,4 +3,6 @@ class Api {
 //auth url
 static String signUpUrl="/register";
 static String loginUrl='/login';
+//get category 
+static String getCategory="/categories";
 }

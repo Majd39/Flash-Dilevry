@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prl_app/model/Clases/products_models.dart';
+import 'package:prl_app/model/Clases/category_models.dart';
 import 'package:prl_app/model/routes/routes.dart';
+import 'package:prl_app/services/HomepageService.dart';
 import 'package:prl_app/view/screens/Home/NavBar/favorite_screen.dart';
 import 'package:prl_app/view/screens/Home/NavBar/notifications_screen.dart';
 import 'package:prl_app/view/screens/Home/NavBar/settings_screen.dart';
@@ -12,27 +14,15 @@ import 'package:prl_app/view/widgets/Home/category_item_widget.dart';
 
 abstract class AbsHomeProductsController extends GetxController {
   goToCategory();
-
   goToProducts();
-
   goToStores();
   viewDetail(ProductsModels item);
+  fetchCategories();
 }
 
 class HomeProductsController extends AbsHomeProductsController {
-
   late RxInt currentIndex = 0.obs;
   late RxInt index = 0.obs;
-
-  // final section = [
-  //   CartItem(
-  //     onTap: ({required ProductsModels item}) {
-  //       viewDetail(item);
-  //     },
-  //   ),
-  //   CategoryItemWidget(),
-  //   const CardStoreWidget(),
-  // ].obs;
 
   final tape = [
     const HomeProductsScreen(),
@@ -41,14 +31,16 @@ class HomeProductsController extends AbsHomeProductsController {
     const SettingsScreen(),
   ].obs;
 
-
   late RxList<Widget> section;
+  late RxList<Category> categories = <Category>[].obs;
+
+  final Homepageservice _homepageservice = Homepageservice();
 
   @override
   void onInit() {
     currentIndex = 0.obs;
     section = [
-    CartItem(
+      CartItem(
         onTap: ({required ProductsModels item}) {
           viewDetail(item);
         },
@@ -56,8 +48,10 @@ class HomeProductsController extends AbsHomeProductsController {
       CategoryItemWidget(),
       const CardStoreWidget(),
     ].obs;
+    fetchCategories(); // Fetch categories on initialization
     super.onInit();
   }
+
   @override
   goToCategory() {
     index.value = 1;
@@ -66,7 +60,6 @@ class HomeProductsController extends AbsHomeProductsController {
   @override
   goToProducts() {
     index.value = 0;
-
   }
 
   @override
@@ -76,6 +69,20 @@ class HomeProductsController extends AbsHomeProductsController {
 
   @override
   viewDetail(ProductsModels item) {
-    Get.toNamed(Routes.itemScreen , arguments:{'item':item} );
+    Get.toNamed(Routes.itemScreen, arguments: {'item': item});
+  }
+
+  @override
+  void fetchCategories() async {
+    try {
+      print('Fetching categories...');
+      List<Category> fetchedCategories = await _homepageservice.fetchCategories();
+      categories.value = fetchedCategories;
+      print('Categories fetched successfully.');
+    } catch (e) {
+      print('Error while fetching categories: $e');
+      // Handle the error and provide feedback to the user
+      Get.snackbar('Error', 'Failed to load categories. Please try again.');
+    }
   }
 }
