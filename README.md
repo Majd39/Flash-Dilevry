@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # prl_app
 
 A new Flutter project.
@@ -14,3 +15,9 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# Flash-delivery
+It is a simple delivery app for university using flutter framwork and laravel
+after you clone the project you shoud :
+flutter pub get
+>>>>>>> 4c24e001c7af73beb4e4c7144667fa6dad7a446c
