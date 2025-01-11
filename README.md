@@ -1,2 +1,2 @@
-# Flash-Dilevry
-It is a simple dilevry app for university using flutter framwork and laravel
+# Flash-Dilevery
+It is a simple dilevery app for university using flutter framwork and laravel
