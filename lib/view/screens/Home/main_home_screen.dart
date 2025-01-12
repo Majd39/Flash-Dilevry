@@ -68,7 +68,7 @@ class MainHomeScreen extends StatelessWidget {
                     )),
                 BottomNavigationBarItem(
                     icon: const Icon(
-                      Icons.notifications_active,
+                      Icons.shopping_bag_outlined,
                       color: ColorApp.secndApp,
                     ),
                     label: '',

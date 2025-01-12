@@ -5,8 +5,8 @@ import 'package:prl_app/model/Clases/category_models.dart';
 import 'package:prl_app/model/Clases/stores_models.dart';
 import 'package:prl_app/model/routes/routes.dart';
 import 'package:prl_app/services/HomepageService.dart';
+import 'package:prl_app/view/screens/Home/NavBar/bag_screen.dart';
 import 'package:prl_app/view/screens/Home/NavBar/favorite_screen.dart';
-import 'package:prl_app/view/screens/Home/NavBar/notifications_screen.dart';
 import 'package:prl_app/view/screens/Home/NavBar/settings_screen.dart';
 import 'package:prl_app/view/screens/Home/home_products_screen.dart';
 import 'package:prl_app/view/widgets/Home/card_store_widget.dart';
@@ -28,7 +28,7 @@ class HomeProductsController extends AbsHomeProductsController {
   final tape = [
     const HomeProductsScreen(),
     const FavoriteScreen(),
-    const NotificationsScreen(),
+     BagScreen(),
     const SettingsScreen(),
   ].obs;
 
