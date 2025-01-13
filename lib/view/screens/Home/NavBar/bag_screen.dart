@@ -3,14 +3,13 @@ import 'package:get/get.dart';
 import 'package:prl_app/controlar/controllers/Home/navBar/bag_controller.dart';
 import 'package:prl_app/model/Clases/products_models.dart';
 import 'package:prl_app/model/constant/theme.dart';
-import 'package:prl_app/model/routes/image_routs.dart';
 import 'package:prl_app/view/widgets/Public/text_widget.dart';
 
 class BagScreen extends StatelessWidget {
   BagScreen({super.key});
 
   final int value = 0;
-  final List<ProductsModels> products = ProductsModels.products;
+  final List<ProductsModels> products = ProductsModels(imageUrl: "",name: "",price: 5,storeName: "", description: '') as List<ProductsModels>;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +89,7 @@ class BagScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               size: 12),
                           TextWidget(
-                              data: '${products[index].pris} \$',
+                              data: '${products[index].price} \$',
                               color: ColorApp.lightMain,
                               fontWeight: FontWeight.bold,
                               size: 16),
@@ -171,7 +170,7 @@ class BagScreen extends StatelessWidget {
               const SizedBox(width: 6),
               InkWell(
                 onTap: () {
-                  controller.purchase();
+                 // controller.purchase();
                 },
                 child: Container(
                   height: 48,

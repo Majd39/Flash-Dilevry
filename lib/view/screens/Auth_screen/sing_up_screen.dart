@@ -10,6 +10,8 @@ class SingUp extends StatelessWidget {
   final SignUpController controller = Get.put(SignUpController());
   final GlobalKey<FormState> formKey = GlobalKey();
 
+  SingUp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

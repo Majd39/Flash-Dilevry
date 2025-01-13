@@ -7,4 +7,6 @@ static String loginUrl='/login';
 static String getCategory="/categories";
 //get stors
 static String getStors="/get_store";
+//get product
+static String getProduct="/get_product";
 }

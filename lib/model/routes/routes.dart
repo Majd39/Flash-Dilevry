@@ -9,7 +9,6 @@ import 'package:prl_app/view/screens/Home/main_home_screen.dart';
 import 'package:prl_app/view/screens/onbording/onbording_screen.dart';
 import 'package:prl_app/view/screens/splash/splash.dart';
 //import 'package:prl_app/view/widgets/Home/stors.dart';
-
 class AppRoutes {
   static const String onbrding = Routes.onbrding;
   static const String check = Routes.check;
@@ -18,22 +17,27 @@ class AppRoutes {
   static const String homeProduct = Routes.homeProduct;
   static const String storeScreen = Routes.storeScreen;
   static const String itemScreen = Routes.itemScreen;
- static const String main_home_screen = Routes.main_home_screen;
-//static const String store_screen=Routes.store_screen;
+  static const String main_home_screen = Routes.main_home_screen;
 
   static final routes = [
     GetPage(name: Routes.splash, page: () => const Splash()),
     GetPage(name: Routes.onbrding, page: () => const OnbordingScreen()),
     GetPage(name: Routes.check, page: () => const Check()),
     GetPage(name: Routes.login, page: () => const LogIn()),
-    GetPage(name: Routes.sinup, page: () =>  SingUp()),
+    GetPage(name: Routes.sinup, page: () => SingUp()),
     GetPage(name: Routes.homeProduct, page: () => const HomeProductsScreen()),
-    GetPage(name: Routes.storeScreen, page: () =>  StoreScreen()),
-    GetPage(name: Routes.itemScreen, page: () => const ItemScreen()),
-    GetPage(name: Routes.main_home_screen, page:() => MainHomeScreen()),
-   // GetPage(name: Routes.store_screen, page: ()=>StoresListScreen()),
+    GetPage(name: Routes.storeScreen, page: () => StoreScreen()),
+    GetPage(
+      name: Routes.itemScreen,
+      page: () {
+        final String? productIndex = Get.parameters['productIndex'];
+        return ItemScreen(productIndex: int.parse(productIndex ?? '0')); // Default to 0 if not passed
+      },
+    ),
+    GetPage(name: Routes.main_home_screen, page: () => const MainHomeScreen()),
   ];
 }
+
 
 class Routes {
   static const String splash = '/splash';

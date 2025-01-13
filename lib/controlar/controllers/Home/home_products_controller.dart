@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prl_app/model/Clases/products_models.dart';
-import 'package:prl_app/model/Clases/category_models.dart';
-import 'package:prl_app/model/Clases/stores_models.dart';
 import 'package:prl_app/model/routes/routes.dart';
-import 'package:prl_app/services/HomepageService.dart';
-import 'package:prl_app/view/screens/Home/NavBar/bag_screen.dart';
 import 'package:prl_app/view/screens/Home/NavBar/favorite_screen.dart';
 import 'package:prl_app/view/screens/Home/NavBar/settings_screen.dart';
 import 'package:prl_app/view/screens/Home/home_products_screen.dart';
@@ -18,7 +14,6 @@ abstract class AbsHomeProductsController extends GetxController {
   goToProducts();
   goToStores();
   viewDetail(ProductsModels item);
-  fetchCategories();
 }
 
 class HomeProductsController extends AbsHomeProductsController {
@@ -28,15 +23,13 @@ class HomeProductsController extends AbsHomeProductsController {
   final tape = [
     const HomeProductsScreen(),
     const FavoriteScreen(),
-     BagScreen(),
+    // BagScreen(),
     const SettingsScreen(),
   ].obs;
 
   late RxList<Widget> section;
-  late RxList<Category> categories = <Category>[].obs;
-  late RxList<StoresModels> stores = <StoresModels>[].obs;
 
-  final Homepageservice _homepageservice = Homepageservice();
+
 
   @override
   void onInit() {
@@ -50,8 +43,6 @@ class HomeProductsController extends AbsHomeProductsController {
       CategoryItemWidget(),
       const CardStoreWidget(),
     ].obs;
-    fetchCategories(); // Fetch categories on initialization
-    fetchStores();
     super.onInit();
   }
 
@@ -75,28 +66,7 @@ class HomeProductsController extends AbsHomeProductsController {
     Get.toNamed(Routes.itemScreen, arguments: {'item': item});
   }
 
-  @override
-  void fetchCategories() async {
-    try {
-      print('Fetching categories...');
-      List<Category> fetchedCategories = await _homepageservice.fetchCategories();
-      categories.value = fetchedCategories;
-      print('Categories fetched successfully.');
-    } catch (e) {
-      print('Error while fetching categories: $e');
-      // Handle the error and provide feedback to the user
-      Get.snackbar('Error', 'Failed to load categories. Please try again.');
-    }
-  }
-    void fetchStores() async {
-    try {
-      print('Fetching stores...');
-      List<StoresModels> fetchedStores = await _homepageservice.fetchStores();
-      stores.value = fetchedStores;
-      print('Stores fetched successfully.');
-    } catch (e) {
-      print('Error while fetching stores: $e');
-      Get.snackbar('Error', 'Failed to load stores. Please try again.');
-    }
-  }
+
+   
+
 }

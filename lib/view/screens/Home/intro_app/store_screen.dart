@@ -8,9 +8,8 @@ import 'package:prl_app/view/widgets/Home/cart_item.dart';
 import 'package:prl_app/view/widgets/Public/text_widget.dart';
 
 class StoreScreen extends StatelessWidget {
-  final List<ProductsModels> product = ProductsModels.products;
 
-   StoreScreen({super.key});
+   const StoreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

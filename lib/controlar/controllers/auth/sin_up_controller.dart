@@ -9,6 +9,7 @@ class SignUpController extends GetxController {
   String lastName = "";
   String mobile = "";
   String password = "";
+  // ignore: non_constant_identifier_names
   String password_confirmation = "";
   String address = "";
 

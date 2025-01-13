@@ -41,7 +41,6 @@ class FavoriteScreen extends StatelessWidget {
                 children: [
                   Dismissible(
                     key: const ValueKey(1),
-                    child: const FavoriteWidget(),
                     background: Container(
                       alignment: Alignment.centerLeft,
                       margin:
@@ -60,84 +59,85 @@ class FavoriteScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    child: const FavoriteWidget(),
                   ),
                   Dismissible(
                     key: const ValueKey(2),
-                    child: const FavoriteWidget(),
                     background: Container(
                       margin:
                           const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       height: 100,
+                      color: Colors.red,
                       child: const Center(
                         child: Text('Delete'),
                       ),
-                      color: Colors.red,
                     ),
+                    child: const FavoriteWidget(),
                   ),
                   Dismissible(
                     key: const ValueKey(3),
-                    child: const FavoriteWidget(),
                     background: Container(
                       margin:
                           const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       height: 100,
+                      color: Colors.red,
                       child: const Center(
                         child: Text('Delete'),
                       ),
-                      color: Colors.red,
                     ),
+                    child: const FavoriteWidget(),
                   ),
                   Dismissible(
                     key: const ValueKey(4),
-                    child: const FavoriteWidget(),
                     background: Container(
                       margin:
                           const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       height: 100,
+                      color: Colors.red,
                       child: const Center(
                         child: Text('Delete'),
                       ),
-                      color: Colors.red,
                     ),
+                    child: const FavoriteWidget(),
                   ),
                   Dismissible(
                     key: const ValueKey(5),
-                    child: const FavoriteWidget(),
                     background: Container(
                       margin:
                           const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       height: 100,
+                      color: Colors.red,
                       child: const Center(
                         child: Text('Delete'),
                       ),
-                      color: Colors.red,
                     ),
+                    child: const FavoriteWidget(),
                   ),
                   Dismissible(
                     key: const ValueKey(6),
-                    child: const FavoriteWidget(),
                     background: Container(
                       margin:
                           const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       height: 100,
+                      color: Colors.red,
                       child: const Center(
                         child: Text('Delete'),
                       ),
-                      color: Colors.red,
                     ),
+                    child: const FavoriteWidget(),
                   ),
                   Dismissible(
                     key: const ValueKey(7),
-                    child: const FavoriteWidget(),
                     background: Container(
                       margin:
                           const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       height: 100,
+                      color: Colors.red,
                       child: const Center(
                         child: Text('Delete'),
                       ),
-                      color: Colors.red,
                     ),
+                    child: const FavoriteWidget(),
                   ),
                 ],
               ),

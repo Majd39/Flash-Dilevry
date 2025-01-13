@@ -74,10 +74,10 @@ class FavoriteWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: ColorApp.lightMain.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(6)),
-                  child: Center(child: const TextWidget(data: '--', color: ColorApp.darkMain, fontWeight: FontWeight.bold, size: 12)),
+                  child: const Center(child: TextWidget(data: '--', color: ColorApp.darkMain, fontWeight: FontWeight.bold, size: 12)),
                 ),
               ),
-              TextWidget(
+              const TextWidget(
                   data: '0',
                   color: ColorApp.lightMain,
                   fontWeight: FontWeight.w400,
