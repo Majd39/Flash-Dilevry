@@ -17,7 +17,9 @@ class Productcontroller extends GetxController {
       final fetchedProducts = await service.fetchProducts();
       products.value = fetchedProducts;
     } catch (e) {
-      Get.snackbar('Error', 'Failed to load products. Please try again.');
+      Get.snackbar('Error', 'Failed to load products. Please try again.'  );
+      print( 'Failed to load products. Please try again.$e');
     }
   }
+  
 }

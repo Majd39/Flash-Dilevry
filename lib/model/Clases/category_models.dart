@@ -23,6 +23,6 @@ class Category {
     if (imagePath.startsWith('http')) {
       return imagePath;  // Already a full URL
     }
-    return baseUrl + imagePath;  // Add base URL if it's a relative path
+    return "$baseUrl/$imagePath";  // Add base URL if it's a relative path
   }
 }

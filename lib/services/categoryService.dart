@@ -27,14 +27,15 @@ class CategoryService {
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         final categories = json['categories'] as List<dynamic>;
+        print(' ${json["message"]}');
 
         // Print and return success message
         print('Categories fetched successfully');
         return Category.fromJsonList(categories);
       } else if (response.statusCode == 401) {
         final json = jsonDecode(response.body);
-        print('Unauthorized access: ${json["message"]}');
-        throw Exception('Unauthorized: ${json["message"]}');
+        print(' ${json["message"]}');
+        throw Exception(' ${json["message"]}');
       } else {
         print('Failed to load categories. Status code: ${response.statusCode}');
         throw Exception('Failed to load categories');

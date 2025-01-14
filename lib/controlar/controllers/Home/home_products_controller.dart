@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prl_app/model/Clases/products_models.dart';
 import 'package:prl_app/model/routes/routes.dart';
+import 'package:prl_app/view/screens/Home/NavBar/bag_screen.dart';
 import 'package:prl_app/view/screens/Home/NavBar/favorite_screen.dart';
 import 'package:prl_app/view/screens/Home/NavBar/settings_screen.dart';
 import 'package:prl_app/view/screens/Home/home_products_screen.dart';
@@ -23,7 +24,7 @@ class HomeProductsController extends AbsHomeProductsController {
   final tape = [
     const HomeProductsScreen(),
     const FavoriteScreen(),
-    // BagScreen(),
+     BagScreen(),
     const SettingsScreen(),
   ].obs;
 

@@ -1,40 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prl_app/controlar/controllers/Home/introApp/storeController.dart';
 import 'package:prl_app/model/constant/theme.dart';
-import 'package:prl_app/model/routes/routes.dart';
 import 'package:prl_app/model/data/API.dart';
 import 'package:prl_app/view/widgets/Public/text_widget.dart';
-import 'package:prl_app/controlar/controllers/Home/introApp/storeController.dart';
+class StoresByCategoryPage extends StatelessWidget {
+  final String categoryName;
 
-class CardStoreWidget extends StatelessWidget {
-  const CardStoreWidget({super.key});
+  StoresByCategoryPage({required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(Storecontroller());
 
-    return Obx(() {
-      if (controller.stores.isEmpty) {
-        return const Center(child: CircularProgressIndicator());
-      }
-print("cardstorewidget");
-      return SingleChildScrollView(
-        child: Wrap(
-          spacing: 16,
-          runSpacing: 16,
-          children: controller.stores.map((store) {
-            return InkWell(
-              splashColor: ColorApp.lightMain,
-              onTap: () {
-                // Pass store data to the StoreScreen
-                Get.toNamed(
-                  Routes.storeScreen,
-                  arguments: {
-                    'store': store,
-                  },
-                );
-              },
-              child: Card(
+    controller.fetchStoresByCategory(categoryName);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Stores in $categoryName'),
+        backgroundColor: ColorApp.mainApp,
+      ),
+      body: Obx(() {
+        if (controller.errorMessage.isNotEmpty) {
+          return Center(
+            child: Text(
+              controller.errorMessage.value, // Show the error message from the backend
+              style: TextStyle(fontSize: 18, color: Colors.red),
+            ),
+          );
+        }
+
+        if (controller.stores.isEmpty) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        return SingleChildScrollView(
+          child: Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            children: controller.stores.map((store) {
+              return Card(
                 color: ColorApp.s,
                 child: Container(
                   padding: const EdgeInsetsDirectional.only(
@@ -45,24 +50,18 @@ print("cardstorewidget");
                   ),
                   height: 238,
                   width: 164,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: ColorApp.s,
-                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         height: 128,
                         width: 140,
-                        child: Center(
-                          child: Image.network(
-                            '${Api.homeUrl}/${store.storeImage}',
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Icon(Icons.broken_image, size: 64);
-                            },
-                          ),
+                        child: Image.network(
+                          '${Api.homeUrl}/${store.storeImage}',
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.broken_image, size: 64);
+                          },
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -72,7 +71,6 @@ print("cardstorewidget");
                         fontWeight: FontWeight.bold,
                         size: 16,
                       ),
-                      const SizedBox(height: 8),
                       Row(
                         children: [
                           const Icon(Icons.location_on_outlined,
@@ -92,7 +90,7 @@ print("cardstorewidget");
                               color: ColorApp.mainApp, size: 12),
                           const SizedBox(width: 8),
                           TextWidget(
-                            data: store.categoryName,
+                            data: "",
                             color: ColorApp.lightMain.withOpacity(0.75),
                             fontWeight: FontWeight.w400,
                             size: 12,
@@ -102,11 +100,12 @@ print("cardstorewidget");
                     ],
                   ),
                 ),
-              ),
-            );
-          }).toList(),
-        ),
-      );
-    });
+              );
+            }).toList(),
+          ),
+        );
+      }),
+    );
   }
 }
+

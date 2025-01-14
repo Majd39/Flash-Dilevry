@@ -27,13 +27,13 @@ class AppRoutes {
     GetPage(name: Routes.sinup, page: () => SingUp()),
     GetPage(name: Routes.homeProduct, page: () => const HomeProductsScreen()),
     GetPage(name: Routes.storeScreen, page: () => StoreScreen()),
-    GetPage(
-      name: Routes.itemScreen,
-      page: () {
-        final String? productIndex = Get.parameters['productIndex'];
-        return ItemScreen(productIndex: int.parse(productIndex ?? '0')); // Default to 0 if not passed
-      },
-    ),
+  //  GetPage(
+     // name: Routes.itemScreen,
+    //  page: () {
+        //final String? productIndex = Get.parameters['productIndex'];
+        //return ItemScreen(productIndex: int.parse(productIndex ?? '0')); // Default to 0 if not passed
+    //  },
+   // ),
     GetPage(name: Routes.main_home_screen, page: () => const MainHomeScreen()),
   ];
 }

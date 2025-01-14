@@ -16,10 +16,10 @@ class StoresModels {
   static List<StoresModels> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) {
       return StoresModels(
-        storeName: json['store_name'],
-        storeImage: json['store_image'],
-        categoryName: json['category_name'],
-        address: json['address'],
+        storeName: json['store_name'] ?? 'Unknown Store', // Default if null
+        storeImage: json['store_image'] ?? '', // Handle null with empty string
+        categoryName: json['category_name'] ?? 'Unknown Category', // Default if null
+        address: json['address'] ?? 'Unknown Address', // Default if null
       );
     }).toList();
   }

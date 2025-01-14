@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prl_app/controlar/controllers/Home/productController.dart';
+import 'package:prl_app/controlar/controllers/Home/introApp/productController.dart';
 import 'package:prl_app/model/constant/theme.dart';
 import 'package:prl_app/view/widgets/Public/text_widget.dart';
 import 'package:readmore/readmore.dart';
@@ -8,6 +8,9 @@ import 'package:readmore/readmore.dart';
 class ItemScreen extends StatelessWidget {
   final Productcontroller controller = Get.put(Productcontroller());
   final int productIndex;
+
+  // To manage quantity and total price
+  final RxInt quantity = 1.obs;
 
   ItemScreen({super.key, required this.productIndex});
 
@@ -147,6 +150,108 @@ class ItemScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: ColorApp.mainApp,
                           ),
+                        ),
+                        const SizedBox(height: 32),
+                        Obx(() => Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    if (quantity.value > 1) {
+                                      quantity.value--;
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                      color: ColorApp.lightMain.withOpacity(0.5),
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    child: Icon(Icons.remove,
+                                        color:
+                                            ColorApp.lightMain.withOpacity(0.70)),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                TextWidget(
+                                  data: '${quantity.value}',
+                                  color: ColorApp.lightMain,
+                                  fontWeight: FontWeight.w400,
+                                  size: 24,
+                                ),
+                                const SizedBox(width: 16),
+                                InkWell(
+                                  onTap: () {
+                                    quantity.value++;
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                      color: ColorApp.mainApp,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    child: const Icon(Icons.add, size: 14),
+                                  ),
+                                ),
+                              ],
+                            )),
+                        const SizedBox(height: 24),
+                        Row(
+                          children: [
+                            Container(
+                              width: 100,
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: ColorApp.lightMain,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Obx(() => TextWidget(
+                                    data:
+                                        '${(selectedProduct.price * quantity.value).toStringAsFixed(2)} \$',
+                                    color: ColorApp.lightMain,
+                                    fontWeight: FontWeight.bold,
+                                    size: 20,
+                                  )),
+                            ),
+                            const Spacer(),
+                            InkWell(
+                              onTap: () {
+                                // Add functionality to add to cart
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 200,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: ColorApp.mainApp,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextWidget(
+                                      data: 'Add to Cart',
+                                      color: ColorApp.darkMain,
+                                      fontWeight: FontWeight.bold,
+                                      size: 20,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Icon(
+                                      Icons.shopping_cart_outlined,
+                                      size: 20,
+                                      color: ColorApp.darkMain,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

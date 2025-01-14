@@ -75,7 +75,7 @@ class MainHomeScreen extends StatelessWidget {
                     activeIcon: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Icons.notifications_active,
+                        const Icon(Icons.shopping_bag,
                             color: ColorApp.mainApp),
                         Container(
                           margin: const EdgeInsetsDirectional.all(4),

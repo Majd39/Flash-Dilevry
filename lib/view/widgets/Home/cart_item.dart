@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prl_app/controlar/controllers/Home/productController.dart';
+import 'package:prl_app/controlar/controllers/Home/favoreteController.dart';
+import 'package:prl_app/controlar/controllers/Home/introApp/productController.dart';
 import 'package:prl_app/model/Clases/products_models.dart';
 import 'package:prl_app/model/constant/theme.dart';
+import 'package:prl_app/view/screens/Home/intro_app/item_screen.dart';
 import 'package:prl_app/view/widgets/Public/text_widget.dart';
 
+// ignore: must_be_immutable
 class CartItem extends StatelessWidget {
-  final Function({required ProductsModels item}) onTap;
-
-  CartItem({Key? key, required this.onTap}) : super(key: key);
-
   final Productcontroller controller = Get.put(Productcontroller());
+FavoriteController favoriteController=Get.put(FavoriteController());
+  CartItem({super.key, required Null Function({required ProductsModels item}) onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,9 @@ class CartItem extends StatelessWidget {
         return const Center(
           child: CircularProgressIndicator(),
         );
-      }
+      };
 
-      return SingleChildScrollView( // Remove Expanded here
+      return SingleChildScrollView(
         child: Wrap(
           spacing: 16,
           runSpacing: 16,
@@ -31,7 +32,7 @@ class CartItem extends StatelessWidget {
               final product = controller.products[index];
               return InkWell(
                 onTap: () {
-                  onTap(item: product);
+              Get.to(() => ItemScreen(productIndex: index));
                 },
                 child: Card(
                   color: ColorApp.s,
@@ -62,7 +63,19 @@ class CartItem extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const Icon(Icons.favorite, color: Colors.red),
+                            Obx(() {
+  return   IconButton(
+        onPressed: () {
+          favoriteController.toggleFavorite(product.product_id);
+        },
+        icon: Icon(
+          favoriteController.isFavorite(product.product_id)
+              ? Icons.favorite
+              : Icons.favorite_border,
+          color: favoriteController.isFavorite(product.product_id) ? Colors.red : Colors.grey,
+        ),
+      );
+    })
                           ],
                         ),
                         const SizedBox(height: 12),

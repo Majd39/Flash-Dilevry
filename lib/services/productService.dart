@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart'as http;
 import 'package:prl_app/model/Clases/products_models.dart';
 import 'package:prl_app/model/data/API.dart';
 import 'package:prl_app/model/data/SavingUserData.dart';
-
 class Productservice {
   Future<List<ProductsModels>> fetchProducts() async {
     final url = Uri.parse(Api.homeUrl + Api.getProduct);
@@ -25,8 +24,13 @@ class Productservice {
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
+        print(response.body);
         final stores = json['stores'] as List<dynamic>;
-        return ProductsModels.fromJsonList(stores);
+        final products = ProductsModels.fromJsonList(stores);
+        for (var product in products) {
+          print('Product ID: ${product.product_id}'); // Debugging the product ID
+        }
+        return products;
       } else {
         throw Exception('Failed to load products. Status code: ${response.statusCode}');
       }
