@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prl_app/controlar/controllers/Home/introApp/productController.dart';
+import 'package:prl_app/controlar/controllers/Home/navBar/bag_controller.dart';
 import 'package:prl_app/model/constant/theme.dart';
 import 'package:prl_app/view/widgets/Public/text_widget.dart';
-import 'package:readmore/readmore.dart';
 
 class ItemScreen extends StatelessWidget {
   final Productcontroller controller = Get.put(Productcontroller());
   final int productIndex;
-
-  // To manage quantity and total price
+  final BagController bagController = Get.put(BagController());
   final RxInt quantity = 1.obs;
 
   ItemScreen({super.key, required this.productIndex});
@@ -26,7 +25,8 @@ class ItemScreen extends StatelessWidget {
               onPressed: () {
                 // Add favorite functionality here
               },
-              icon: const Icon(Icons.favorite_border, color: ColorApp.lightMain),
+              icon:
+                  const Icon(Icons.favorite_border, color: ColorApp.lightMain),
             ),
           ],
           centerTitle: true,
@@ -84,6 +84,7 @@ class ItemScreen extends StatelessWidget {
                     ),
                     child: ListView(
                       children: [
+                        // Product Details
                         Row(
                           children: [
                             TextWidget(
@@ -94,67 +95,19 @@ class ItemScreen extends StatelessWidget {
                             ),
                             const Spacer(),
                             TextWidget(
-                              data: '${selectedProduct.price.toStringAsFixed(2)} \$',
+                              data:
+                                  '${selectedProduct.price.toStringAsFixed(2)} \$',
                               color: ColorApp.lightMain,
                               fontWeight: FontWeight.bold,
                               size: 24,
                             ),
                           ],
                         ),
-                        const SizedBox(height: 24),
-                        Row(
-                          children: [
-                            TextWidget(
-                              data: selectedProduct.storeName,
-                              color: ColorApp.lightMain,
-                              fontWeight: FontWeight.w400,
-                              size: 20,
-                            ),
-                            const Spacer(),
-                            const TextWidget(
-                              data: 'Location ',
-                              color: ColorApp.lightMain,
-                              fontWeight: FontWeight.w400,
-                              size: 20,
-                            ),
-                            const Icon(Icons.location_on_outlined,
-                                color: ColorApp.mainApp),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        const TextWidget(
-                          data: 'Description',
-                          color: ColorApp.lightMain,
-                          fontWeight: FontWeight.w400,
-                          size: 20,
-                        ),
-                        const SizedBox(height: 4),
-                        ReadMoreText(
-                          selectedProduct.description,
-                          trimMode: TrimMode.Line,
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            color: ColorApp.lightMain.withOpacity(0.70),
-                            height: 2,
-                          ),
-                          trimLines: 3,
-                          trimCollapsedText: 'Read more',
-                          trimExpandedText: 'Show less',
-                          moreStyle: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: ColorApp.mainApp,
-                          ),
-                          lessStyle: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: ColorApp.mainApp,
-                          ),
-                        ),
                         const SizedBox(height: 32),
                         Obx(() => Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                // Quantity Selector
                                 InkWell(
                                   onTap: () {
                                     if (quantity.value > 1) {
@@ -165,12 +118,13 @@ class ItemScreen extends StatelessWidget {
                                     height: 30,
                                     width: 30,
                                     decoration: BoxDecoration(
-                                      color: ColorApp.lightMain.withOpacity(0.5),
+                                      color:
+                                          ColorApp.lightMain.withOpacity(0.5),
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: Icon(Icons.remove,
-                                        color:
-                                            ColorApp.lightMain.withOpacity(0.70)),
+                                        color: ColorApp.lightMain
+                                            .withOpacity(0.70)),
                                   ),
                                 ),
                                 const SizedBox(width: 16),
@@ -197,32 +151,16 @@ class ItemScreen extends StatelessWidget {
                                 ),
                               ],
                             )),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 32),
+                        // Add to Cart Button
                         Row(
                           children: [
-                            Container(
-                              width: 100,
-                              height: 50,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: ColorApp.lightMain,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Obx(() => TextWidget(
-                                    data:
-                                        '${(selectedProduct.price * quantity.value).toStringAsFixed(2)} \$',
-                                    color: ColorApp.lightMain,
-                                    fontWeight: FontWeight.bold,
-                                    size: 20,
-                                  )),
-                            ),
                             const Spacer(),
                             InkWell(
                               onTap: () {
-                                // Add functionality to add to cart
+                                bagController.addToCart(
+                                    "${selectedProduct.productId}",
+                                    quantity.value);
                               },
                               child: Container(
                                 height: 50,
@@ -251,6 +189,7 @@ class ItemScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            const Spacer(),
                           ],
                         ),
                       ],

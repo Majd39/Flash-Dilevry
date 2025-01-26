@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:prl_app/model/constant/theme.dart';
 
 class BottunContainerIconWidget extends StatelessWidget {
-  const BottunContainerIconWidget({super.key});
-
+  BottunContainerIconWidget({super.key, required this.onTap,this.icon});
+  void Function() onTap;
+  IconData? icon;
   @override
   Widget build(BuildContext context) {
-    return  InkWell(
+    return InkWell(
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsetsDirectional.all(4),
         decoration: BoxDecoration(
@@ -15,9 +18,9 @@ class BottunContainerIconWidget extends StatelessWidget {
         ),
         height: 40,
         width: 40,
-        child: const Icon(
-          Icons.person_outline_rounded,
-          size: 36,
+        child:  Icon(
+          icon,
+           size: 36,
         ),
       ),
     );

@@ -66,13 +66,13 @@ FavoriteController favoriteController=Get.put(FavoriteController());
                             Obx(() {
   return   IconButton(
         onPressed: () {
-          favoriteController.toggleFavorite(product.product_id);
+          favoriteController.toggleFavorite("${product.productId}");
         },
         icon: Icon(
-          favoriteController.isFavorite(product.product_id)
+          favoriteController.isFavorite("${product.productId}")
               ? Icons.favorite
               : Icons.favorite_border,
-          color: favoriteController.isFavorite(product.product_id) ? Colors.red : Colors.grey,
+          color: favoriteController.isFavorite("${product.productId}") ? Colors.red : Colors.grey,
         ),
       );
     })

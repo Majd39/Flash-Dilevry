@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:get/get.dart';
 import 'package:prl_app/model/Clases/products_models.dart';
 import 'package:prl_app/services/productService.dart';
@@ -18,7 +19,6 @@ class Productcontroller extends GetxController {
       products.value = fetchedProducts;
     } catch (e) {
       Get.snackbar('Error', 'Failed to load products. Please try again.'  );
-      print( 'Failed to load products. Please try again.$e');
     }
   }
   

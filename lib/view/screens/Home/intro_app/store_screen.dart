@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prl_app/model/Clases/products_models.dart';
 import 'package:prl_app/model/constant/theme.dart';
-import 'package:prl_app/model/routes/image_routs.dart';
 import 'package:prl_app/view/widgets/Home/cart_item.dart';
 import 'package:prl_app/view/widgets/Public/text_widget.dart';
 
@@ -13,7 +12,6 @@ class StoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Retrieve the store data passed via Get.arguments
     final store = Get.arguments['store'];
-print("StoreScreen");
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorApp.darkMain,

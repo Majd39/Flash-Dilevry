@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:prl_app/model/Clases/products_models.dart';
+import 'package:get/get.dart';
+import 'package:prl_app/controlar/controllers/Home/navBar/bag_controller.dart';
 import 'package:prl_app/model/constant/theme.dart';
 import 'package:prl_app/view/widgets/Public/text_widget.dart';
 
 class BagScreen extends StatelessWidget {
   BagScreen({super.key});
-
-  final int value = 0;
-  final List<ProductsModels> products = [
-    ProductsModels(
-        imageUrl: "assets/sample.jpg",
-        name: "Sample Product",
-        price: 5,
-        storeName: "Sample Store",
-        description: 'Sample Description')
-  ];
+  final BagController controller = Get.put(BagController());
 
   @override
   Widget build(BuildContext context) {
+    controller.fetchCartSummary();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorApp.darkMain,
@@ -25,16 +19,18 @@ class BagScreen extends StatelessWidget {
           centerTitle: true,
           backgroundColor: ColorApp.darkMain,
           title: const TextWidget(
-              data: 'Cart',
-              color: ColorApp.lightMain,
-              fontWeight: FontWeight.bold,
-              size: 24),
+            data: 'Cart',
+            color: ColorApp.lightMain,
+            fontWeight: FontWeight.bold,
+            size: 24,
+          ),
           leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.arrow_back_ios,
-                  color: ColorApp.lightMain, size: 24)),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_ios,
+                color: ColorApp.lightMain, size: 24),
+          ),
           actions: const [
             Icon(
               Icons.shopping_bag_outlined,
@@ -43,162 +39,174 @@ class BagScreen extends StatelessWidget {
             )
           ],
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Wrap(
-                  spacing: 16,
-                  runSpacing: 16,
-                  children: List.generate(
-                    products.length,
-                    (index) => Container(
+        body: Obx(() {
+          if (controller.cartItems.isEmpty) {
+            return const Center(
+              child: TextWidget(
+                data: 'Your cart is empty.',
+                color: ColorApp.lightMain,
+                fontWeight: FontWeight.bold,
+                size: 20,
+              ),
+            );
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.cartItems.length,
+                  itemBuilder: (context, index) {
+                    final product = controller.cartItems[index];
+                    return Container(
+                      margin: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
                         color: ColorApp.s,
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      height: 100,
-                      width: double.infinity,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 12),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            width: 80,
-                            height: 80,
-                            margin: const EdgeInsetsDirectional.symmetric(
-                                horizontal: 16),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16)),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image.asset(
-                                products[index].imageUrl,
-                                fit: BoxFit.cover,
-                              ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network(
+                              product.imageUrl,
+                              height: 80,
+                              width: 80,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Icon(Icons.broken_image,
+                                    size: 80, color: Colors.grey);
+                              },
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              TextWidget(
-                                  data: products[index].name,
-                                  color: ColorApp.lightMain,
-                                  fontWeight: FontWeight.bold,
-                                  size: 16),
-                              TextWidget(
-                                  data: products[index].storeName,
-                                  color: ColorApp.lightMain.withOpacity(0.75),
-                                  fontWeight: FontWeight.bold,
-                                  size: 12),
-                              TextWidget(
-                                  data: '${products[index].price} \$',
-                                  color: ColorApp.lightMain,
-                                  fontWeight: FontWeight.bold,
-                                  size: 16),
-                            ],
-                          ),
-                          const Spacer(),
-                          Container(
-                            margin: const EdgeInsetsDirectional.all(4),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              color: ColorApp.mainApp,
-                            ),
-                            width: 40,
+                          const SizedBox(width: 12),
+                          Expanded(
                             child: Column(
-                              children: const [
-                                Icon(
-                                  Icons.add,
-                                  size: 24,
-                                  color: ColorApp.darkMain,
-                                ),
-                                SizedBox(height: 4),
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 TextWidget(
-                                  data: '1',
-                                  color: ColorApp.darkMain,
+                                  data: product.name,
+                                  color: ColorApp.lightMain,
                                   fontWeight: FontWeight.bold,
-                                  size: 24.0,
+                                  size: 16,
                                 ),
-                                SizedBox(height: 4),
-                                Icon(
-                                  Icons.remove,
-                                  size: 24,
-                                  color: ColorApp.darkMain,
+                                const SizedBox(height: 4),
+                                TextWidget(
+                                  data: product.description,
+                                  color: ColorApp.lightMain.withOpacity(0.75),
+                                  fontWeight: FontWeight.normal,
+                                  size: 14,
+                                ),
+                                const SizedBox(height: 4),
+                                TextWidget(
+                                  data: '${product.price.toStringAsFixed(2)} \$',
+                                  color: ColorApp.lightMain,
+                                  fontWeight: FontWeight.bold,
+                                  size: 16,
+                                ),
+                                const SizedBox(height: 4),
+                                TextWidget(
+                                  data: 'Quantity: ${product.quantityItem}',
+                                  color: ColorApp.lightMain.withOpacity(0.75),
+                                  fontWeight: FontWeight.normal,
+                                  size: 14,
                                 ),
                               ],
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: ColorApp.lightMain, width: 2),
-                      ),
-                      height: 46,
-                      child: const Center(
-                        child: TextWidget(
-                          data: '0.00 \$',
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: ColorApp.darkMain,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const TextWidget(
+                          data: 'Total Items:',
                           color: ColorApp.lightMain,
                           fontWeight: FontWeight.bold,
-                          size: 24,
+                          size: 18,
+                        ),
+                        TextWidget(
+                          data: '${controller.totalItems.value}',
+                          color: ColorApp.lightMain,
+                          fontWeight: FontWeight.bold,
+                          size: 18,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const TextWidget(
+                          data: 'Total Price:',
+                          color: ColorApp.lightMain,
+                          fontWeight: FontWeight.bold,
+                          size: 18,
+                        ),
+                        TextWidget(
+                          data: '${controller.totalPrice.value.toStringAsFixed(2)} \$',
+                          color: ColorApp.lightMain,
+                          fontWeight: FontWeight.bold,
+                          size: 18,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add logic to confirm the purchase process
+                        Get.snackbar(
+                          'Purchase Confirmed',
+                          'Your purchase has been successfully completed!',
+                          backgroundColor: ColorApp.mainApp,
+                          colorText: ColorApp.lightMain,
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorApp.mainApp,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 32,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  InkWell(
-                    onTap: () {
-                      // Handle purchase here
-                    },
-                    child: Container(
-                      height: 48,
-                      width: 240,
-                      decoration: BoxDecoration(
-                        color: ColorApp.mainApp,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Icon(Icons.shopping_cart, color: ColorApp.lightMain),
+                          SizedBox(width: 8),
                           Text(
-                            "Purchase",
+                            ' Purchase',
                             style: TextStyle(
                               color: ColorApp.darkMain,
                               fontWeight: FontWeight.bold,
-                              fontSize: 24,
+                              fontSize: 16,
                             ),
-                          ),
-                          SizedBox(width: 8),
-                          Icon(
-                            Icons.shopping_cart,
-                            size: 32,
-                            color: ColorApp.darkMain,
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }),
       ),
     );
   }

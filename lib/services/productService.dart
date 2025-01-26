@@ -24,13 +24,8 @@ class Productservice {
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        print(response.body);
         final stores = json['stores'] as List<dynamic>;
-        final products = ProductsModels.fromJsonList(stores);
-        for (var product in products) {
-          print('Product ID: ${product.product_id}'); // Debugging the product ID
-        }
-        return products;
+        return ProductsModels.fromJsonList(stores);
       } else {
         throw Exception('Failed to load products. Status code: ${response.statusCode}');
       }

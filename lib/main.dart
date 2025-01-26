@@ -8,7 +8,9 @@ void main() async {
 
   bool isLoggedIn = await TokenManager.isTokenAvailable();
 
-  runApp(MyApp(initialRoute: isLoggedIn ? AppRoutes.main_home_screen : AppRoutes.onbrding));
+  runApp(MyApp(
+      initialRoute:
+          isLoggedIn ? AppRoutes.main_home_screen : AppRoutes.onbrding));
 }
 
 class MyApp extends StatelessWidget {

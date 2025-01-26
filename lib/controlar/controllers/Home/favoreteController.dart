@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:get/get.dart';
 import 'package:prl_app/services/favoreteService.dart';
 

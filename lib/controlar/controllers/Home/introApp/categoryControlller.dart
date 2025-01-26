@@ -15,12 +15,10 @@ class Categorycontrolller extends GetxController {
 
   void fetchCategories() async {
     try {
-      print('Fetching categories...');
       List<Category> fetchedCategories = await service.fetchCategories();
 
       // Update categories and show success message
       categories.value = fetchedCategories;
-      print('Categories fetched successfully.');
 
       // Show success message using Snackbar
       Get.snackbar(
@@ -29,10 +27,9 @@ class Categorycontrolller extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.green,
         colorText: Colors.white,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       );
     } catch (e) {
-      print('Error while fetching categories: $e');
       // Handle the error and provide feedback to the user
       Get.snackbar('Error', 'Failed to load categories. Please try again.');
     }
